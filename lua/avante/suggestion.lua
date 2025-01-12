@@ -43,11 +43,16 @@ function Suggestion:new(id)
   instance.ignore_patterns = gitignore_patterns
   instance.negate_patterns = gitignore_negate_patterns
   if Config.behaviour.auto_suggestions then
+    Utils.debug("Auto suggestions enabled")
+    Utils.debug("Current config:", vim.inspect(Config))
     if not vim.g.avante_login or vim.g.avante_login == false then
       api.nvim_exec_autocmds("User", { pattern = Providers.env.REQUEST_LOGIN_PATTERN })
       vim.g.avante_login = true
     end
     instance:setup_autocmds()
+  else
+    Utils.debug("Auto suggestions disabled")
+    Utils.debug("Current config:", vim.inspect(Config))
   end
   return instance
 end

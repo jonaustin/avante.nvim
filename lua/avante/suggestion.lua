@@ -323,7 +323,7 @@ function Suggestion:setup_autocmds()
     if last_cursor_pos[1] == current_cursor_pos[1] and last_cursor_pos[2] == current_cursor_pos[2] then
       self:suggest()
     end
-  end, 700)
+  end, Config.behaviour.auto_suggestions_debounce)
 
   local function suggest_callback()
     if not vim.bo.buflisted then return end

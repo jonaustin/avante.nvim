@@ -125,6 +125,7 @@ M._defaults = {
     auto_focus_sidebar = true,
     auto_suggestions = false, -- Experimental stage
     auto_suggestions_respect_ignore = false,
+    auto_suggestions_debounce = 700, -- Debounce timeout in milliseconds for suggestions
     auto_set_highlight_group = true,
     auto_set_keymaps = true,
     auto_apply_diff_after_generation = false,

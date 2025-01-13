@@ -235,6 +235,7 @@ _See [config.lua#L9](./lua/avante/config.lua) for the full config_
   },
   behaviour = {
     auto_suggestions = false, -- Experimental stage
+    auto_suggestions_debounce = 700, -- How long to wait before showing suggestions
     auto_set_highlight_group = true,
     auto_set_keymaps = true,
     auto_apply_diff_after_generation = false,

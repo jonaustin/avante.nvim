@@ -48,7 +48,6 @@ function Suggestion:new(id)
       vim.g.avante_login = true
     end
     instance:setup_autocmds()
-  else
   end
   return instance
 end

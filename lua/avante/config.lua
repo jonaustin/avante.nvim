@@ -263,11 +263,10 @@ M.providers = {}
 ---@param opts? avante.Config
 function M.setup(opts)
   vim.validate({ opts = { opts, "table", true } })
-  local defaults = vim.deepcopy(M._defaults)
 
   local merged = vim.tbl_deep_extend(
     "force",
-    defaults,
+    M._defaults,
     opts or {},
     ---@type avante.Config
     {

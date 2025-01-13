@@ -263,10 +263,10 @@ M.providers = {}
 ---@param opts? avante.Config
 function M.setup(opts)
   vim.validate({ opts = { opts, "table", true } })
+  local defaults = vim.deepcopy(M._defaults)
 
   -- Set default debounce based on provider
-  local defaults = vim.deepcopy(M._defaults)
-  defaults.behaviour.auto_suggestions_debounce = (opts and opts.auto_suggestions_provider == "copilot") and 75 or 700
+  -- defaults.behaviour.auto_suggestions_debounce = (opts and opts.auto_suggestions_provider == "copilot") and 300 or 700
 
   local merged = vim.tbl_deep_extend(
     "force",

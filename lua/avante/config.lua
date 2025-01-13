@@ -125,7 +125,7 @@ M._defaults = {
     auto_focus_sidebar = true,
     auto_suggestions = false, -- Experimental stage
     auto_suggestions_respect_ignore = false,
-    auto_suggestions_debounce = nil, -- Will be set based on provider
+    auto_suggestions_debounce = 700,
     auto_set_highlight_group = true,
     auto_set_keymaps = true,
     auto_apply_diff_after_generation = false,
@@ -264,9 +264,6 @@ M.providers = {}
 function M.setup(opts)
   vim.validate({ opts = { opts, "table", true } })
   local defaults = vim.deepcopy(M._defaults)
-
-  -- Set default debounce based on provider
-  -- defaults.behaviour.auto_suggestions_debounce = (opts and opts.auto_suggestions_provider == "copilot") and 300 or 700
 
   local merged = vim.tbl_deep_extend(
     "force",

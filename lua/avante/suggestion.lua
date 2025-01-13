@@ -316,58 +316,12 @@ end
 
 function Suggestion:setup_autocmds()
   self.augroup = api.nvim_create_augroup("avante_suggestion_" .. self.id, { clear = true })
-  local last_cursor_pos = {}
 
-  local check_for_suggestion = Utils.debounce(function()
-    local current_cursor_pos = api.nvim_win_get_cursor(0)
-    if last_cursor_pos[1] == current_cursor_pos[1] and last_cursor_pos[2] == current_cursor_pos[2] then
-      self:suggest()
-    end
-  end, Config.behaviour.auto_suggestions_debounce)
-
-  local function suggest_callback()
-    if not vim.bo.buflisted then return end
-
-    if vim.bo.buftype ~= "" then return end
-
-    local full_path = api.nvim_buf_get_name(0)
-    if
-      Config.behaviour.auto_suggestions_respect_ignore
-      and Utils.is_ignored(full_path, self.ignore_patterns, self.negate_patterns)
-    then
-      return
-    end
-
-    local ctx = self:ctx()
-
-    if ctx.prev_doc and vim.deep_equal(ctx.prev_doc, Utils.get_doc()) then return end
-
-    self:hide()
-    last_cursor_pos = api.nvim_win_get_cursor(0)
-    self._timer = check_for_suggestion()
-  end
-
-  api.nvim_create_autocmd("InsertEnter", {
-    group = self.augroup,
-    callback = suggest_callback,
-  })
-
-  api.nvim_create_autocmd("BufEnter", {
-    group = self.augroup,
-    callback = function()
-      if fn.mode():match("^[iR]") then suggest_callback() end
-    end,
-  })
-
-  api.nvim_create_autocmd("CursorMovedI", {
-    group = self.augroup,
-    callback = suggest_callback,
-  })
-
+  -- Only keep the InsertLeave autocmd to clean up when leaving insert mode
   api.nvim_create_autocmd("InsertLeave", {
     group = self.augroup,
     callback = function()
-      last_cursor_pos = {}
+
       self:hide()
       self:reset()
     end,

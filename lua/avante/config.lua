@@ -159,6 +159,7 @@ M._defaults = {
       prev = "[x",
     },
     suggestion = {
+      trigger = "<M-k>",
       accept = "<M-l>",
       next = "<M-]>",
       prev = "<M-[>",

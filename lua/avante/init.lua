@@ -129,6 +129,15 @@ H.keymaps = function()
   end
 
   if Config.behaviour.auto_suggestions then
+    Utils.safe_keymap_set("i", Config.mappings.suggestion.trigger, function()
+      local _, _, sg = M.get()
+      sg:suggest()
+    end, {
+      desc = "avante: trigger suggestion",
+      noremap = true,
+      silent = true,
+    })
+
     Utils.safe_keymap_set("i", Config.mappings.suggestion.accept, function()
       local _, _, sg = M.get()
       sg:accept()
